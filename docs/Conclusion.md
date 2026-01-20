@@ -10,3 +10,7 @@ In this demo, we explored how NSO can be integrated into a CI/CD pipeline to man
 This process demonstrates the complete lifecycle of developing, testing, and deploying network service changes within a CI/CD framework, ensuring both reliability and efficiency in managing network infrastructure.
 
 We hope you now feel comfortable with the role these tools play in modern network automation and CI/CD workflows. Thank you for participating!
+
+---
+
+**Previous:** [← Compliance Reporting](lab_guides/testing/compliance_reporting.md)

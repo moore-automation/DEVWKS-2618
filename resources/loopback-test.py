@@ -4,9 +4,10 @@ import json
 import argparse
 import base64
 import sys
+import urllib3
 
 # Disable warnings for self-signed certificates
-requests.packages.urllib3.disable_warnings()
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # Argument parser setup
 parser = argparse.ArgumentParser(description='NSO service management script')
@@ -32,8 +33,10 @@ HEADERS = {
     'Accept': 'application/yang-data+json'
 }
 
-# Flag to indicate if any test failed
-any_test_failed = False
+# Test state tracking
+class TestState:
+    """Shared state to track test failures across test cases"""
+    failed = False
 
 class CommonSetup(aetest.CommonSetup):
     @aetest.subsection
@@ -54,8 +57,8 @@ class SyncFromDevice(aetest.Testcase):
             if response.status_code == 200:
                 step.passed('Successfully synced from device to NSO')
             else:
+                TestState.failed = True
                 step.failed(f'Failed to sync: {response.status_code} {response.text}')
-                any_test_failed = True
 
 class ApplyService(aetest.Testcase):
     @aetest.test
@@ -78,36 +81,29 @@ class ApplyService(aetest.Testcase):
                 step.passed('Successfully applied service to device')
                 print(response.status_code)
             else:
+                TestState.failed = True
                 step.failed(f'Failed to apply service: {response.status_code} {response.text}')
-                any_test_failed = True
 
 class DeleteService(aetest.Testcase):
     @aetest.test
     def delete_service(self, steps):
         # Delete the loopback service configuration from the specified device
-        payload = json.dumps({
-            "loopback:loopback": [
-                {
-                    "name": "loopback_service_1",
-                    "device": DEVICE_NAME,
-                    "loopback-intf": 1166,
-                    "ip-address": "10.100.66.1"
-                }
-            ]
-        })
         with steps.start('Deleting service from device') as step:
             url = f'{NSO_URL}/restconf/data/tailf-ncs:services/loopback:loopback=loopback_service_1'
-            response = requests.request("DELETE", url, headers=HEADERS, data=payload)
+            # DELETE requests don't need a payload
+            response = requests.delete(url, headers=HEADERS)
             if response.status_code in [200, 201, 204]:
                 step.passed('Successfully deleted service from the device')
             else:
+                TestState.failed = True
                 step.failed(f'Failed to delete service: {response.status_code} {response.text}')
-                any_test_failed = True
 
 if __name__ == '__main__':
     aetest.main()
     # Check if any test failed and exit with a non-zero status
-    if any_test_failed:
+    if TestState.failed:
+        print('\n❌ One or more tests failed')
         sys.exit(1)
     else:
+        print('\n✅ All tests passed')
         sys.exit(0)

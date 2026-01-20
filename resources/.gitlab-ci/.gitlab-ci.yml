@@ -1,0 +1,54 @@
+# GitLab CI/CD Pipeline for NSO Package Deployment
+#
+# Workflow:
+#   Feature Branch: build → test (compile, test, leave tarball on dev server)
+#   Main Branch:    deliver → deploy (retrieve pre-built artifact, deploy to prod)
+#
+# IMPORTANT: Always run pipeline on feature/dev branch BEFORE merging to main!
+
+# Include environment variables and job definitions
+include:
+  - '/nso_cicd/pipeline_utils/environments.yml'
+  # Feature branch jobs (only when NOT on main)
+  - local: '.gitlab-ci/jobs-feature.yml'
+    rules:
+      - if: $CI_COMMIT_BRANCH != "main"
+  # Production jobs (only on main branch)
+  - local: '.gitlab-ci/jobs-production.yml'
+    rules:
+      - if: $CI_COMMIT_BRANCH == "main"
+
+# Define pipeline stages
+stages:
+  - build
+  - test
+  - deliver
+  - deploy_prod
+
+# Global variables
+variables:
+  NSO_VERSION: "6.4.4"
+  NSO_RC_PATH: "/opt/ncs/ncs-${NSO_VERSION}/ncsrc"
+  NSO_RUN_PATH: "/nso/run"
+  SSH_OPTS: "-o ConnectTimeout=10 -o ServerAliveInterval=5 -o ServerAliveCountMax=3 -o StrictHostKeyChecking=accept-new"
+
+# Shared job template (used by both feature and production jobs)
+.base_job:
+  before_script:
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+  timeout: 10 minutes
+
+# Pre-requisites check (runs on all branches)
+runner pre-reqs:
+  stage: .pre
+  extends: .base_job
+  timeout: 5 minutes
+  script:
+    - python --version
+    - command -v sshpass || (echo "sshpass not installed" && exit 1)
+    - pipx install robotframework-sshlibrary --include-deps --force
+    - sshpass -p "$NSO_DEV_PWD" ssh $SSH_OPTS $NSO_DEV_USER@$NSO_DEV_IP "echo 'OK'" || (echo "Dev unreachable" && exit 1)
+    - sshpass -p "$NSO_PROD_PWD" ssh $SSH_OPTS $NSO_DEV_USER@$NSO_PROD_IP "echo 'OK'" || (echo "Prod unreachable" && exit 1)
+  retry:
+    max: 2
+    when: [runner_system_failure, stuck_or_timeout_failure]

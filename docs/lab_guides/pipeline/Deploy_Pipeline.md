@@ -1,4 +1,7 @@
 # Pipeline-Driven NSO Service Development
+
+**⏱️ Estimated time: 25 minutes**
+
 ---
 After understanding the concept of a pipeline and its stages, we'll move on to modifying the NSO package service in the `nso_cicd/packages/loopback` directory. Our GitLab CI/CD pipeline will automate the verification process by compiling the package and performing a compatibility (smoke) test with the current NSO version.
 
@@ -96,7 +99,7 @@ To enhance practicality and efficiency, you can replace your CI file with the pi
 
 !!! question "Question: Which stages will run when making changes in our test pipeline?"
 
-```yaml linenums="1" title="Gitlab runner .gitlab-ci.yml"
+```yaml linenums="1" title=".gitlab-ci.yml"
 include:
   - '/nso_cicd/pipeline_utils/environments.yml'
 
@@ -118,13 +121,13 @@ runner pre-reqs:
     - sshpass -p "$NSO_PROD_PWD" ssh -o StrictHostKeyChecking=no $NSO_DEV_USER@$NSO_PROD_IP "echo 'NSO Prod Environment Accessible'"
 
 # Step to compile the package in the development NSO environment
-package-compilation-🔨:
+package-compilation:
   stage: build
   when: on_success
   except:
     - main
   script:
-    - echo "(Build 🔨) Loading and compiling packages in the NSO dev container"
+    - echo "(Build) Loading and compiling packages in the NSO dev container"
     - sshpass -p "$NSO_DEV_PWD" scp -o StrictHostKeyChecking=no -r nso_cicd/packages/$PACKAGE $NSO_DEV_USER@$NSO_DEV_IP:/home/developer/$PACKAGE
     - sshpass -p "$NSO_DEV_PWD" ssh -o StrictHostKeyChecking=no $NSO_DEV_USER@$NSO_DEV_IP "
         cd /home/developer/ &&
@@ -137,28 +140,28 @@ package-compilation-🔨:
         tar -czvf /home/developer/nso-package_$PACKAGE.tar.gz $PACKAGE"
 
 # Step to load the compiled package into the testing NSO environment
-package-load-📥:
+package-load:
   stage: build
   when: on_success
   except:
     - main
   script:
-    - echo "(Build 📥) Loading compiled packages to testing env NSO"
+    - echo "(Build) Loading compiled packages to testing env NSO"
     # SSH into the NSO development environment and reload the package
     - sshpass -p "$NSO_DEV_PWD" ssh -o StrictHostKeyChecking=no $NSO_DEV_USER@$NSO_DEV_IP "
       source /opt/ncs/ncs-6.4.4/ncsrc &&
       echo 'packages reload' | ncs_cli -Cu admin"
   dependencies:
-    - package-compilation-🔨
+    - package-compilation
 
 # Step to test the loopback service in the NSO testing environment
-test-loopback-service-🕵🏽:
+test-loopback-service:
   stage: test
   when: on_success
   except:
     - main
   script:
-    - echo "(Test 🕵🏽) Deploying service in the NSO test env"
+    - echo "(Test) Deploying service in the NSO test env"
     # Test the service on an IOS-XR device
     - echo "Test IOS-XR"
     - cd nso_cicd/tests/loopback-test && python loopback-test.py --nso_url "http://$NSO_DEV_IP:8080" --device "dev-core-rtr01" --username $NSO_DEV_USER --password $NSO_DEV_PWD
@@ -166,16 +169,16 @@ test-loopback-service-🕵🏽:
     - echo "Test IOS"
     - python loopback-test.py --nso_url "http://$NSO_DEV_IP:8080" --device "dev-dist-rtr01" --username $NSO_DEV_USER --password $NSO_DEV_PWD
   dependencies:
-    - package-load-📥
+    - package-load
 
 # Step to clean up the development environment
-cleanup-🗑️:
+cleanup:
   stage: .post
   only:
     - main
   allow_failure: true
   script:
-    - echo "(Cleanup 🗑️) Removing files from NSO Dev"
+    - echo "(Cleanup) Removing files from NSO Dev"
     # SSH into the NSO development environment and remove the package files
     - sshpass -p "$NSO_DEV_PWD" ssh -o StrictHostKeyChecking=no $NSO_DEV_USER@$NSO_DEV_IP "
       rm -rf $PACKAGE &&
@@ -183,24 +186,24 @@ cleanup-🗑️:
       source /opt/ncs/ncs-6.4.4/ncsrc && echo 'packages reload force' | ncs_cli -Cu admin"
 
 # Step to load the package tarball onto the production NSO environment
-load-production-📦:
+load-production:
   stage: deploy_prod
   when: on_success
   only:
     - main
   script:
-    - echo "(Load📦) Copying tarball to production NSO."
+    - echo "(Load) Copying tarball to production NSO."
     - sshpass -p "$NSO_DEV_PWD" scp -o StrictHostKeyChecking=no $NSO_DEV_USER@$NSO_DEV_IP:/home/developer/nso-package_$PACKAGE.tar.gz .
     - sshpass -p "$NSO_PROD_PWD" scp -o StrictHostKeyChecking=no nso-package_$PACKAGE.tar.gz $NSO_DEV_USER@$NSO_PROD_IP:/home/developer/
 
 # Step to deploy the package on the production NSO environment
-deploy-production-📬:
+deploy-production:
   stage: deploy_prod
   when: on_success
   only:
     - main
   script:
-    - echo "(Deploy📬) Deploying package on production NSO."
+    - echo "(Deploy) Deploying package on production NSO."
     - sshpass -p "$NSO_PROD_PWD" ssh -o StrictHostKeyChecking=no $NSO_DEV_USER@$NSO_PROD_IP "
         cd /home/developer/ &&
         tar -xvf nso-package_$PACKAGE.tar.gz &&
@@ -212,7 +215,7 @@ deploy-production-📬:
         make &&
         echo 'packages reload' | ncs_cli -Cu admin"
   dependencies:
-    - load-production-📦
+    - load-production
 ```
 > **Note:** For more details on the pipeline configuration, see the GitLab [documentation](https://docs.gitlab.com/ee/ci/yaml/).
 
@@ -224,7 +227,10 @@ This process may take a few minutes to complete. While the stages are running, r
 
 !!! question "Is the loopback service available in the development NSO instance?"
 
-<!-- todo: add picture of the stage and show the message why it fail -->
 ![Results pipeline NSO](../../assets/Gitlab-Test-Success.jpg)
+
+---
+
+**Previous:** [← Define Pipeline](Dummy_Pipeline.md) | **Next:** [Pre-commit Checks →](../testing/pre_checks.md)
 
 

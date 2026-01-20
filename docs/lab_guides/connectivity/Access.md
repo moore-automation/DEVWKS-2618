@@ -1,5 +1,7 @@
-
 # Workshop Access & Login
+
+**⏱️ Estimated time: 10 minutes**
+
 ## Verification
 - **Access GitLab**: All the bookmarks for this sessions are available in Google Chrome, select DEVWKS-2618 Bookmark folder and Web IDE. (You can also  navigate to [http://devtools-gitlab.lab.devnetsandbox.local](http://devtools-gitlab.lab.devnetsandbox.local) to access the GitLab UI.) Log in with username `developer` and password `C1sco12345`.
 
@@ -75,3 +77,7 @@ Select the NSO bookmark in Google Chrome or navigate to [http://10.10.20.47:8080
 ![NSO Device Manager](../../assets/nso-devices.jpg)
 
 If all steps are executed correctly, you will have completed the verification of your working environment.
+
+---
+
+**Previous:** [← Connectivity & Access](Connectivity.md) | **Next:** [Define CI/CD Pipeline →](../pipeline/Dummy_Pipeline.md)

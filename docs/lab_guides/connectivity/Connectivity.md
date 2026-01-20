@@ -1,5 +1,7 @@
 # Getting Started - Connectivity & Access
 
+**⏱️ Estimated time: 5 minutes**
+
 This workshop is going to be focused on the [NSO Reservable Sandbox](https://devnetsandbox.cisco.com/DevNet/catalog/nso-sandbox_nso) which received a recent update to upgrade the tools (Gitlab, Robot framework etc..) and a HA build for NSO (6.4.4)
 
 Connectivity to the lab will be via Cisco Secure Client to an instance specific to your seat number. You can find the below credentials to connect and an example entry below:
@@ -25,87 +27,87 @@ The VPN Username is provided in the presentation and the VPN Password is provide
     <tr>
       <td>seat-1</td>
       <td><button class="copy-btn" onclick="copyToClipboard(this)">devnetsandbox-usw1-reservation.cisco.com:20412</button></td>
-      <td><button class="copy-btn" onclick="copyToClipboard(this)">87wI%e&WQv6eL4</button></td>
+      <td><button class="copy-btn" onclick="copyToClipboard(this)">XXXXX</button></td>
     </tr>
     <tr>
       <td>seat-2</td>
       <td><button class="copy-btn" onclick="copyToClipboard(this)">devnetsandbox-usw1-reservation.cisco.com:20394</button></td>
-      <td><button class="copy-btn" onclick="copyToClipboard(this)">p96n&7xDZ#Q^hY</button></td>
+      <td><button class="copy-btn" onclick="copyToClipboard(this)">XXXXX</button></td>
     </tr>
     <tr>
       <td>seat-3</td>
       <td><button class="copy-btn" onclick="copyToClipboard(this)">devnetsandbox-usw1-reservation.cisco.com:20395</button></td>
-      <td><button class="copy-btn" onclick="copyToClipboard(this)">MRHp_k75v25^C</button></td>
+      <td><button class="copy-btn" onclick="copyToClipboard(this)">XXXXX</button></td>
     </tr>
     <tr>
       <td>seat-4</td>
       <td><button class="copy-btn" onclick="copyToClipboard(this)">devnetsandbox-usw1-reservation.cisco.com:20396</button></td>
-      <td><button class="copy-btn" onclick="copyToClipboard(this)">J7I#lm0!iQDxy1n5</button></td>
+      <td><button class="copy-btn" onclick="copyToClipboard(this)">XXXXX</button></td>
     </tr>
     <tr>
       <td>seat-5</td>
       <td><button class="copy-btn" onclick="copyToClipboard(this)">devnetsandbox-usw1-reservation.cisco.com:20397</button></td>
-      <td><button class="copy-btn" onclick="copyToClipboard(this)">9g5i$P9L#*rT5j</button></td>
+      <td><button class="copy-btn" onclick="copyToClipboard(this)">XXXXX</button></td>
     </tr>
     <tr>
       <td>seat-6</td>
       <td><button class="copy-btn" onclick="copyToClipboard(this)">devnetsandbox-usw1-reservation.cisco.com:20400</button></td>
-      <td><button class="copy-btn" onclick="copyToClipboard(this)">aoZ9&&E0CnE7x</button></td>
+      <td><button class="copy-btn" onclick="copyToClipboard(this)">XXXXX</button></td>
     </tr>
     <tr>
       <td>seat-7</td>
       <td><button class="copy-btn" onclick="copyToClipboard(this)">devnetsandbox-usw1-reservation.cisco.com:20401</button></td>
-      <td><button class="copy-btn" onclick="copyToClipboard(this)">9z#49P8_hcrJDt#Y</button></td>
+      <td><button class="copy-btn" onclick="copyToClipboard(this)">XXXXX</button></td>
     </tr>
     <tr>
       <td>seat-8</td>
       <td><button class="copy-btn" onclick="copyToClipboard(this)">devnetsandbox-usw1-reservation.cisco.com:20403</button></td>
-      <td><button class="copy-btn" onclick="copyToClipboard(this)">$2!6jVfh8Jt3L</button></td>
+      <td><button class="copy-btn" onclick="copyToClipboard(this)">XXXXX</button></td>
     </tr>
     <tr>
       <td>seat-9</td>
       <td><button class="copy-btn" onclick="copyToClipboard(this)">devnetsandbox-usw1-reservation.cisco.com:20404</button></td>
-      <td><button class="copy-btn" onclick="copyToClipboard(this)">xd1LR_98*9Fac</button></td>
+      <td><button class="copy-btn" onclick="copyToClipboard(this)">XXXXX</button></td>
     </tr>
     <tr>
       <td>seat-10</td>
       <td><button class="copy-btn" onclick="copyToClipboard(this)">devnetsandbox-usw1-reservation.cisco.com:20405</button></td>
-      <td><button class="copy-btn" onclick="copyToClipboard(this)">$29%O3iYKji6rpQ</button></td>
+      <td><button class="copy-btn" onclick="copyToClipboard(this)">XXXXX</button></td>
     </tr>
     <tr>
       <td>seat-11</td>
       <td><button class="copy-btn" onclick="copyToClipboard(this)">devnetsandbox-usw1-reservation.cisco.com:20406</button></td>
-      <td><button class="copy-btn" onclick="copyToClipboard(this)">tZBt#3SDt1^ou9</button></td>
+      <td><button class="copy-btn" onclick="copyToClipboard(this)">XXXXX</button></td>
     </tr>
     <tr>
       <td>seat-12</td>
       <td><button class="copy-btn" onclick="copyToClipboard(this)">devnetsandbox-usw1-reservation.cisco.com:20407</button></td>
-      <td><button class="copy-btn" onclick="copyToClipboard(this)">#j7mR%m9W1OePf</button></td>
+      <td><button class="copy-btn" onclick="copyToClipboard(this)">XXXXX</button></td>
     </tr>
     <tr>
       <td>seat-13</td>
       <td><button class="copy-btn" onclick="copyToClipboard(this)">devnetsandbox-usw1-reservation.cisco.com:20408</button></td>
-      <td><button class="copy-btn" onclick="copyToClipboard(this)">$2i9%UPJDKVr6p</button></td>
+      <td><button class="copy-btn" onclick="copyToClipboard(this)">XXXXX</button></td>
     </tr>
     <tr>
       <td>seat-14</td>
       <td><button class="copy-btn" onclick="copyToClipboard(this)">devnetsandbox-usw1-reservation.cisco.com:20409</button></td>
-      <td><button class="copy-btn" onclick="copyToClipboard(this)">vC83Hs3c#Pn*$d</button></td>
+      <td><button class="copy-btn" onclick="copyToClipboard(this)">XXXXX</button></td>
     </tr>
     <tr>
       <td>seat-15</td>
       <td><button class="copy-btn" onclick="copyToClipboard(this)">devnetsandbox-usw1-reservation.cisco.com:20410</button></td>
-      <td><button class="copy-btn" onclick="copyToClipboard(this)">C9R*$5x6%kWhd$</button></td>
+      <td><button class="copy-btn" onclick="copyToClipboard(this)">XXXXX</button></td>
     </tr>
     <tr>
       <td>seat-16</td>
       <td><button class="copy-btn" onclick="copyToClipboard(this)">devnetsandbox-usw1-reservation.cisco.com:20411</button></td>
-      <td><button class="copy-btn" onclick="copyToClipboard(this)">dhp^PZB_2ZfU31RH</button></td>
+      <td><button class="copy-btn" onclick="copyToClipboard(this)">XXXXX</button></td>
     </tr>
     <tr>
       <td>speaker-1</td>
       <td><button class="copy-btn" onclick="copyToClipboard(this)">devnetsandbox-usw1-reservation.cisco.com:20378</button></td>
-      <td><button class="copy-btn" onclick="copyToClipboard(this)">5S#00lrTdmfp5xS#</button></td>
+      <td><button class="copy-btn" onclick="copyToClipboard(this)">XXXXX</button></td>
     </tr>
   </tbody>
 </table>
@@ -140,3 +142,7 @@ td {
   position: relative;
 }
 </style>
+
+---
+
+**Next:** [Workshop Access & Login →](Access.md)

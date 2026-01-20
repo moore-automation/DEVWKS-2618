@@ -4,6 +4,8 @@ hide:
 ---
 # **Homepage** { style="text-align: center;" }
 
+**⏱️ Total workshop time: ~2 hours**
+
 ---
 Welcome! You don't need to create a project from scratch for this workshop. Instead, we'll work with a sample repository from the updated NSO Sandbox.
 

@@ -7,10 +7,11 @@ import os
 import sys
 import logging
 import argparse
+import urllib3
 from typing import Optional
 
 # Disable warnings for self-signed certificates
-requests.packages.urllib3.disable_warnings()
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 logging.basicConfig(
     level=logging.INFO,

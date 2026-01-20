@@ -1,12 +1,14 @@
 # Applying Our Service
 
+**⏱️ Estimated time: 15 minutes**
+
 Now that we've added some basic tests, let's move straight into deploying our service!
 
 ## Task 6: Apply the NSO Service
 
 ??? note "**Reminder:** RESTCONF"
     Cisco NSO uses RESTCONF to provide a standardized, RESTful API interface for interacting with network configurations and services.
-    
+
     - RESTCONF is a RESTful protocol for accessing and manipulating network configuration data defined in YANG models.
 
     - It provides a standardized HTTP-based interface for retrieving, configuring, and monitoring network settings.
@@ -22,59 +24,90 @@ Below is a basic Python script to apply the service to the device `dev-dist-rtr0
 # -*- coding:utf-8 -*-
 
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 import json
 import argparse
 import base64
+import urllib3
 
 # Disable warnings for self-signed certificates
-requests.packages.urllib3.disable_warnings()
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-# Argument parser setup
-parser = argparse.ArgumentParser(description='NSO service management script')
-parser.add_argument('--nso_url', type=str, default='http://localhost:8080', help='NSO server URL')
-parser.add_argument('--device', type=str, default='ios-0', help='Device name')
-parser.add_argument('--username', type=str, default='developer', help='NSO username')
-parser.add_argument('--password', type=str, default='C1sco12345', help='NSO password')
-args = parser.parse_args()
+def create_session_with_retries():
+    """Create a requests session with automatic retry logic"""
+    session = requests.Session()
+    retry_strategy = Retry(
+        total=3,
+        backoff_factor=1,
+        status_forcelist=[429, 500, 502, 503, 504],
+        allowed_methods=["HEAD", "GET", "OPTIONS", "POST", "PATCH", "PUT", "DELETE"]
+    )
+    adapter = HTTPAdapter(max_retries=retry_strategy)
+    session.mount("http://", adapter)
+    session.mount("https://", adapter)
+    return session
 
-NSO_URL = args.nso_url
-DEVICE_NAME = args.device
-USERNAME = args.username
-PASSWORD = args.password
+def get_auth_header(username, password):
+    auth_str = f'{username}:{password}'
+    auth_bytes = auth_str.encode('ascii')
+    auth_base64 = base64.b64encode(auth_bytes).decode('ascii')
+    return {
+        'Content-Type': 'application/yang-data+json',
+        'Authorization': f'Basic {auth_base64}',
+        'Accept': 'application/yang-data+json'
+    }
 
-# Encode username and password for the authorization header
-auth_str = f'{USERNAME}:{PASSWORD}'
-auth_bytes = auth_str.encode('ascii')
-auth_base64 = base64.b64encode(auth_bytes).decode('ascii')
-
-HEADERS = {
-    'Content-Type': 'application/yang-data+json',
-    'Authorization': f'Basic {auth_base64}',
-    'Accept': 'application/yang-data+json'
-}
-
-# Define the service payload
-def apply_service():
+def apply_service(nso_url, device_name, username, password, loopback_intf=1166, ip_address="10.100.66.1"):
     payload = json.dumps({
         "loopback:loopback": [
             {
                 "name": "loopback_service_1",
-                "device": DEVICE_NAME,
-                "loopback-intf": 1166,
-                "ip-address": "10.100.66.1"
+                "device": device_name,
+                "loopback-intf": loopback_intf,
+                "ip-address": ip_address
             }
         ]
     })
-    url = f'{NSO_URL}/restconf/data/tailf-ncs:services/loopback:loopback'
-    response = requests.request("PATCH", url, headers=HEADERS, data=payload)
-    if response.status_code in [200, 201, 204]:
-        print('Successfully applied service to device')
-        print(response.status_code)
-    else:
-        print(f'Failed to apply service: {response.status_code} {response.text}')
+    url = f'{nso_url}/restconf/data/tailf-ncs:services/loopback:loopback'
+    headers = get_auth_header(username, password)
+  
+    # Use session with retry logic for better reliability
+    session = create_session_with_retries()
+  
+    try:
+        response = session.patch(url, headers=headers, data=payload, verify=False, timeout=10)
+        if response.status_code in [200, 201, 204]:
+            print(f'✅ Successfully applied service to {device_name}')
+            print(f'   Loopback{loopback_intf}: {ip_address}')
+            print(f'   Status code: {response.status_code}')
+        else:
+            print(f'❌ Failed to apply service: {response.status_code}')
+            print(f'   Response: {response.text}')
+            exit(1)
+    except requests.RequestException as e:
+        print(f'❌ Error connecting to NSO: {e}')
+        exit(1)
 
 if __name__ == "__main__":
-    apply_service()
+    parser = argparse.ArgumentParser(description='NSO service management script')
+    parser.add_argument('--nso_url', type=str, default='http://localhost:8080', help='NSO server URL')
+    parser.add_argument('--device', type=str, default='ios-0', help='Device name')
+    parser.add_argument('--username', type=str, default='developer', help='NSO username')
+    parser.add_argument('--password', type=str, default='C1sco12345', help='NSO password')
+    parser.add_argument('--loopback_intf', type=int, default=1166, help='Loopback interface number')
+    parser.add_argument('--ip_address', type=str, default='10.100.66.1', help='Loopback IP address')
+    args = parser.parse_args()
+
+    apply_service(
+        nso_url=args.nso_url,
+        device_name=args.device,
+        username=args.username,
+        password=args.password,
+        loopback_intf=args.loopback_intf,
+        ip_address=args.ip_address
+    )
+
 ```
 
 ## Task 7: Update the Pipeline to Apply the Service
@@ -82,7 +115,7 @@ if __name__ == "__main__":
 Next, let's add a task to the pipeline to apply the service to `dev-dist-rtr01`. Update your pipeline as shown below:
 
 ```yaml
-apply_service-📦:
+apply-service:
   stage: deliver
   when: on_success
   script:
@@ -91,3 +124,7 @@ apply_service-📦:
 ```
 
 !!! question "Has the configuration been applied to the device correctly?"
+
+---
+
+**Previous:** [← Pre-commit Checks](../testing/pre_checks.md) | **Next:** [Compliance Reporting →](../testing/compliance_reporting.md)

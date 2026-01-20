@@ -2,12 +2,29 @@
 # -*- coding:utf-8 -*-
 
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 import json
 import argparse
 import base64
+import urllib3
 
 # Disable warnings for self-signed certificates
-requests.packages.urllib3.disable_warnings()
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+def create_session_with_retries():
+    """Create a requests session with automatic retry logic"""
+    session = requests.Session()
+    retry_strategy = Retry(
+        total=3,
+        backoff_factor=1,
+        status_forcelist=[429, 500, 502, 503, 504],
+        allowed_methods=["HEAD", "GET", "OPTIONS", "POST", "PATCH", "PUT", "DELETE"]
+    )
+    adapter = HTTPAdapter(max_retries=retry_strategy)
+    session.mount("http://", adapter)
+    session.mount("https://", adapter)
+    return session
 
 def get_auth_header(username, password):
     auth_str = f'{username}:{password}'
@@ -32,16 +49,22 @@ def apply_service(nso_url, device_name, username, password, loopback_intf=1166, 
     })
     url = f'{nso_url}/restconf/data/tailf-ncs:services/loopback:loopback'
     headers = get_auth_header(username, password)
+    
+    # Use session with retry logic for better reliability
+    session = create_session_with_retries()
+    
     try:
-        response = requests.patch(url, headers=headers, data=payload, verify=False, timeout=10)
+        response = session.patch(url, headers=headers, data=payload, verify=False, timeout=10)
         if response.status_code in [200, 201, 204]:
-            print('Successfully applied service to device')
-            print(f'Status code: {response.status_code}')
+            print(f'✅ Successfully applied service to {device_name}')
+            print(f'   Loopback{loopback_intf}: {ip_address}')
+            print(f'   Status code: {response.status_code}')
         else:
-            print(f'Failed to apply service: {response.status_code} {response.text}')
+            print(f'❌ Failed to apply service: {response.status_code}')
+            print(f'   Response: {response.text}')
             exit(1)
     except requests.RequestException as e:
-        print(f'Error connecting to NSO: {e}')
+        print(f'❌ Error connecting to NSO: {e}')
         exit(1)
 
 if __name__ == "__main__":

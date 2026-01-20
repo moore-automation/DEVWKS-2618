@@ -1,5 +1,7 @@
 # **Define the CI/CD Pipeline**
 
+**⏱️ Estimated time: 15 minutes**
+
 ??? info "**REMINDER** - What is a Pipeline?"
     The CI/CD pipeline is responsible for validating changes made to files in the GitLab repository, running automated tests, and deploying code to production if all validations and tests pass.
 
@@ -32,7 +34,7 @@ Next, create the pipeline definition in the GitLab repository. This triggers an 
 
 To save time, we've provided an example pipeline below. Copy and paste this into your new CI file:
 
-```yaml linenums="1" title="Gitlab runner .gitlab-ci.yml"
+```yaml linenums="1" title=".gitlab-ci.yml"
 # Define the stages of the pipeline
 stages:
   - build
@@ -42,40 +44,40 @@ stages:
   - deploy_prod
 
 # Step to compile the package in the development NSO environment
-package-compilation-🔨:
+package-compilation:
   stage: build
   script:
-    - echo "Executing build stage - package-compilation-🔨"
+    - echo "Executing build stage - package-compilation"
 
 # Step to load the compiled package into the testing NSO environment
-package-load-📥:
+package-load:
   stage: build
   script:
-    - echo "Executing build stage - package-load-📥"
+    - echo "Executing build stage - package-load"
 
 # Step to test the loopback service in the NSO testing environment
-test-loopback-service-🕵🏽:
+test-loopback-service:
   stage: test
   script:
-    - echo "Executing test stage - test-loopback-service-🕵🏽"
+    - echo "Executing test stage - test-loopback-service"
 
 # Step to generate and publish the release package
-release-publishing-📦:
+release-publishing:
   stage: deliver
   script:
-    - echo "Executing deliver stage - release-publishing-📦"
+    - echo "Executing deliver stage - release-publishing"
 
 # Step to clean up the development environment
-cleanup-🗑️:
+cleanup:
   stage: cleanup
   script:
-    - echo "Executing cleanup stage - cleanup-🗑️"
+    - echo "Executing cleanup stage - cleanup"
 
 # Step to deploy the package to the production NSO environment
-deploy-production-📬:
+deploy-production:
   stage: deploy_prod
   script:
-    - echo "Executing deploy_prod stage - deploy-production-📬"
+    - echo "Executing deploy_prod stage - deploy-production"
 ```
 > **Note:** For more details on the pipeline configuration, see the GitLab [documentation](https://docs.gitlab.com/ee/ci/yaml/).
 
@@ -96,3 +98,7 @@ To verify that the script executed properly, open the job details.
 To view detailed information about each stage, click on the `passed` button in the status column.
 
 ![Gitlab stages pipeline jobs](../../assets/Gitlab_pipeline_stages_jobs.png)
+
+---
+
+**Previous:** [← Workshop Access](../connectivity/Access.md) | **Next:** [Deploy NSO Service →](Deploy_Pipeline.md)
