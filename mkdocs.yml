@@ -15,7 +15,7 @@ copyright: Copyright &copy; 2024-2026 Cisco Systems, Inc.
 theme:
   name: material
   language: en
-  logo: assets/logo.png
+  logo: assets/logo.jpg
   
   palette:
     # Cisco branded colors - Light mode
@@ -102,8 +102,11 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.mark
   - pymdownx.smartsymbols
-  - pymdownx.snippets
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.tasklist:
@@ -115,9 +118,6 @@ plugins:
   - search:
       lang: en
       separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
-  - git-revision-date-localized:
-      enable_creation_date: true
-      type: timeago
 
 # Navigation structure
 nav:

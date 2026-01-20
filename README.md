@@ -98,15 +98,6 @@ The `resources/` folder contains:
 - **Test files** - pyATS and validation scripts
 - **Configuration files** - Lab environment configurations
 
-## Contributing
-
-We welcome contributions! Please see [CONTRIBUTING.md](docs/CONTRIBUTING.md) for guidelines.
-
-## Community
-
-- [Code of Conduct](docs/CODE_OF_CONDUCT.md)
-- [Security Policy](docs/SECURITY.md)
-
 ## Authors
 
 - **Ed Moore** - [@moore-automation](https://github.com/moore-automation)
