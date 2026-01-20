@@ -1,6 +1,6 @@
 # Getting Started - Connectivity & Access
 
-**⏱️ Estimated time: 5 minutes**
+**⏱️ Estimated time: 3 minutes**
 
 This workshop is going to be focused on the [NSO Reservable Sandbox](https://devnetsandbox.cisco.com/DevNet/catalog/nso-sandbox_nso) which received a recent update to upgrade the tools (Gitlab, Robot framework etc..) and a HA build for NSO (6.4.4)
 

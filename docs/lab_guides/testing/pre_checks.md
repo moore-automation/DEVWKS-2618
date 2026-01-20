@@ -1,6 +1,6 @@
 # Pre-commit Checks
 
-**⏱️ Estimated time: 20 minutes**
+**⏱️ Estimated time: 7 minutes**
 
 There are many types of testing we can perform within our pipelines, in this section we're going to add some basic xml linting to catch any unwanted typos, check connectivity to our devices and perform a config backup. The actual function isn't too important here, more to make it clear the functions of the different tools and their associated benefits and drawbacks.
 

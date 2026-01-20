@@ -1,56 +1,132 @@
-# Homepage
+# DEVWKS-2618: Keeping Compliant with Open-Source Automation and NSO
 
-## Introduction to the Project
----
-Don't worry—you don't need to build a project from scratch. Instead, you'll work with a sample project already set up in the sandbox.
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-In this project, you'll discover the real benefits of NetDevOps by exploring open testing and automation tools. You'll build your own setup and see how everything works together. The goal is to create a complete environment that demonstrates the following benefits across the network:
+## Workshop Overview
 
-**Automation Tools**
+This hands-on workshop explores how to integrate Cisco Network Services Orchestrator (NSO) into a CI/CD pipeline to manage network services efficiently. Learn how to leverage open-source testing and automation tools to improve the quality and reliability of network deployments through thorough testing and version control.
 
-* Set up a detailed testbed using pyATS, defining network topology and device specifics for automation.
-* Extract network state information with pyATS parsers to facilitate analysis and decision-making.
-* Gather comprehensive device configurations and operational data using pyATS device parsers.
-* Design and implement focused tests to verify network elements and their interactions.
-* Use Robot Framework for creating basic automation scripts to handle repetitive, non-network tasks.
-* Develop and run network-specific test scripts to ensure the reliability and performance of the network.
-* Integrate Robot Framework for advanced testing capabilities on NSO and network devices.
+**Duration:** ~45 minutes
 
-**NSO CI/CD Pipelines**
+## What You'll Learn
 
-* Track the status of network configurations at any point in time.
-* Track who proposed and approved each specific configuration change.
-* Provide visibility into configuration differences at any point in time versus previous states.
-* Enable rollback to any previous moment.
-* Provide syntax-checking capabilities for network changes on your local workstation.
-* Automate the deployment of proposed changes across different environments (e.g., testing, staging, production).
-* Model simulated virtual environments to test proposed changes before going to production.
-* Define and run the required test sets and passing criteria, both in testing and production, before accepting a change as successful.
-* Automatically roll back any proposed configuration that does not pass the required tests.
-
----
-These are the building blocks used for this comprehensive demonstration:
-
-* [GitLab](https://about.gitlab.com/): Version Control Server (VCS) with integration capabilities for automated pipelines.
-* [Cisco Network Services Orchestrator](https://developer.cisco.com/site/nso/): Provides end-to-end automation to design and deliver services faster.
-* [pyATS](https://developer.cisco.com/pyats/): Automation tool for stateful validation of network device operational status with reusable test cases.
-* [CML](https://www.cisco.com/c/en/us/products/cloud-systems-management/modeling-labs/index.html): Network modeling and simulation environment.
-* [Robot](https://robotframework.org/): Open source automation framework for test automation and robotic process automation (RPA).
+* **CI/CD Fundamentals** - Understand Continuous Integration and Continuous Deployment concepts
+* **NSO Integration** - Integrate NSO with GitLab CI/CD pipelines  
+* **Automated Testing** - Implement automated tests using Robot Framework and pyATS
+* **Compliance Reporting** - Leverage NSO compliance reporting for configuration validation
+* **DevOps Best Practices** - Apply modern DevOps practices to network automation
 
 ## Prerequisites
----
-To follow this workshop, you should have:
 
-- VPN Client for connection to dCloud (Cisco Secure Client)
+- Basic understanding of network configuration (Cisco IOS/IOS-XE)
+- Familiarity with CLI operations
+- Access to DevNet Sandbox or NSO instance
+- VPN client (Cisco Secure Client)
 
 ## Lab Topology
+
+The workshop uses a dCloud environment with:
+
+- **Development NSO** (`10.10.20.47`) - Testing environment for validation
+- **Production NSO** (`10.10.20.48`) - Production deployment target
+- **DevBox** - Linux VM for service development and testing
+- **DevTools** - Linux VM with GitLab and automation tools
+- **CML Environments** - Two Cisco Modeling Labs instances (test and production)
+
+## Getting Started
+
+### Option 1: Using Make (Recommended)
+
+```bash
+# Clone the repository
+git clone https://github.com/moore-automation/DEVWKS-2618.git
+cd DEVWKS-2618
+
+# Install dependencies
+make install
+
+# Start the development server
+make serve
+
+# Open your browser to http://localhost:8000
+```
+
+### Option 2: Manual Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/moore-automation/DEVWKS-2618.git
+cd DEVWKS-2618
+
+# Create virtual environment
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Start MkDocs server
+mkdocs serve
+```
+
+## Makefile Commands
+
+| Command | Description |
+|---------|-------------|
+| `make help` | Display available commands |
+| `make install` | Set up Python virtual environment and install dependencies |
+| `make serve` | Start local development server at http://localhost:8000 |
+| `make build` | Build static site to `site/` directory |
+| `make clean` | Remove built files and Python cache |
+| `make clean-all` | Remove everything including virtual environment |
+
+## Workshop Structure
+
+1. **Get Connected** - Access the sandbox environment
+2. **Create CI/CD Pipeline** - Define GitLab pipeline stages and jobs
+3. **Pipeline-Driven NSO Development** - Develop and test NSO services
+4. **Pre-Checks** - Add automated validation and testing
+5. **Service Deployment** - Apply services to network devices
+6. **Compliance Reporting** - Validate configurations against policies
+
+## Resources
+
+The `resources/` folder contains:
+
+- **Python scripts** - Automation scripts for NSO interactions
+- **XML templates** - NSO service and device templates
+- **Test files** - pyATS and validation scripts
+- **Configuration files** - Lab environment configurations
+
+## Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](docs/CONTRIBUTING.md) for guidelines.
+
+## Community
+
+- [Code of Conduct](docs/CODE_OF_CONDUCT.md)
+- [Security Policy](docs/SECURITY.md)
+
+## Authors
+
+- **Ed Moore** - [@moore-automation](https://github.com/moore-automation)
+- **David Quezada**
+- **Jorge Mira**
+
+## License
+
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Cisco DevNet for sandbox infrastructure
+- NSO development community
+- Cisco Live 2026 attendees
+
 ---
-Here's a brief outline of the dCloud setup used for this lab:
 
-- **Access:** Connect through a Cisco Secure Client VPN, with details provided by your breakout proctor.
-- **Network Setup:** Two Cisco Modeling Labs (CML) environments are available—one simulates the live network, and the other is for testing.
-- **Development & Production NSO:** The main NSO deployment manages network devices within the CML.
-- **Developer Workstation (DevBox):** A Linux VM for developing new services, running tests, and initiating pipelines.
-- **Developer Tools (DevTools):** Another Linux VM equipped with various tools needed for lab activities.
+**Questions or Issues?**
 
-![Lab Topology](docs/assets/topology_lab.jpg)
+- Open an [issue](https://github.com/moore-automation/DEVWKS-2618/issues)
+- Visit [Cisco DevNet](https://developer.cisco.com)
+- Join the NSO community discussions

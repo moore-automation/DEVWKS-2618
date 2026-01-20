@@ -1,6 +1,6 @@
 # Compliance Reporting
 
-**⏱️ Estimated time: 10 minutes**
+**⏱️ Estimated time: 5 minutes**
 
 An important step in gaining acceptance of newly automated processes is providing visibility and assurance of their success. NSO Compliance Reporting is a feature within Cisco NSO that helps network operators assess and ensure that network device configurations adhere to predefined policies and standards. It enables automated auditing and reporting on compliance status across network elements, making it easier to identify and remediate configuration drift and inconsistencies in a timely manner.
 

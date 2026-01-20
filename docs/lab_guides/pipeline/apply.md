@@ -1,6 +1,6 @@
 # Applying Our Service
 
-**⏱️ Estimated time: 15 minutes**
+**⏱️ Estimated time: 5 minutes**
 
 Now that we've added some basic tests, let's move straight into deploying our service!
 

@@ -1,6 +1,6 @@
 # **Define the CI/CD Pipeline**
 
-**⏱️ Estimated time: 15 minutes**
+**⏱️ Estimated time: 8 minutes**
 
 ??? info "**REMINDER** - What is a Pipeline?"
     The CI/CD pipeline is responsible for validating changes made to files in the GitLab repository, running automated tests, and deploying code to production if all validations and tests pass.

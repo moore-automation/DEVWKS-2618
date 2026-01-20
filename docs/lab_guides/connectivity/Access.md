@@ -1,6 +1,6 @@
 # Workshop Access & Login
 
-**⏱️ Estimated time: 10 minutes**
+**⏱️ Estimated time: 5 minutes**
 
 ## Verification
 - **Access GitLab**: All the bookmarks for this sessions are available in Google Chrome, select DEVWKS-2618 Bookmark folder and Web IDE. (You can also  navigate to [http://devtools-gitlab.lab.devnetsandbox.local](http://devtools-gitlab.lab.devnetsandbox.local) to access the GitLab UI.) Log in with username `developer` and password `C1sco12345`.

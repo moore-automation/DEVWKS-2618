@@ -1,6 +1,6 @@
 # Pipeline-Driven NSO Service Development
 
-**⏱️ Estimated time: 25 minutes**
+**⏱️ Estimated time: 10 minutes**
 
 ---
 After understanding the concept of a pipeline and its stages, we'll move on to modifying the NSO package service in the `nso_cicd/packages/loopback` directory. Our GitLab CI/CD pipeline will automate the verification process by compiling the package and performing a compatibility (smoke) test with the current NSO version.
