@@ -1,17 +1,14 @@
 # Getting Started - Connectivity & Access
 
-**⏱️ Estimated time: 3 minutes**
-
 This workshop is going to be focused on the [NSO Reservable Sandbox](https://devnetsandbox.cisco.com/DevNet/catalog/nso-sandbox_nso) which received a recent update to upgrade the tools (Gitlab, Robot framework etc..) and a HA build for NSO (6.4.4)
 
 Connectivity to the lab will be via Cisco Secure Client to an instance specific to your seat number. You can find the below credentials to connect and an example entry below:
 
-
 ## VPN Connectivity
 
-You can find the credentials to connect to the VPN for your seat below. You will need to use the Cisco Secure Client (formerly AnyConnect) to connect to the VPN. If you do not have it installed, you can download it from the [Cisco Software Download page](https://software.cisco.com/download/home/).
+You can find the credentials to connect to the VPN for your seat below. You will need to use the Cisco Secure Client to connect to the VPN.
 
-The VPN Username is provided in the presentation and the VPN Password is provided in the table below. The VPN Address is the same for all seats, but the port number will be different for each seat.
+The VPN Username is provided in the presentation and the VPN Password is provided in the table below.
 
 ## VPN Credentials
 
@@ -144,5 +141,3 @@ td {
 </style>
 
 ---
-
-**Next:** [Workshop Access & Login →](Access.md)

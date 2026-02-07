@@ -1,7 +1,5 @@
 # **Define the CI/CD Pipeline**
 
-**⏱️ Estimated time: 8 minutes**
-
 ??? info "**REMINDER** - What is a Pipeline?"
     The CI/CD pipeline is responsible for validating changes made to files in the GitLab repository, running automated tests, and deploying code to production if all validations and tests pass.
 
@@ -100,5 +98,3 @@ To view detailed information about each stage, click on the `passed` button in t
 ![Gitlab stages pipeline jobs](../../assets/Gitlab_pipeline_stages_jobs.png)
 
 ---
-
-**Previous:** [← Workshop Access](../connectivity/Access.md) | **Next:** [Deploy NSO Service →](Deploy_Pipeline.md)

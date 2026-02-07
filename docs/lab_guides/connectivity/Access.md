@@ -1,7 +1,5 @@
 # Workshop Access & Login
 
-**⏱️ Estimated time: 5 minutes**
-
 ## Verification
 - **Access GitLab**: All the bookmarks for this sessions are available in Google Chrome, select DEVWKS-2618 Bookmark folder and Web IDE. (You can also  navigate to [http://devtools-gitlab.lab.devnetsandbox.local](http://devtools-gitlab.lab.devnetsandbox.local) to access the GitLab UI.) Log in with username `developer` and password `C1sco12345`.
 
@@ -13,15 +11,15 @@ In the Sandbox, there are three different instances of Cisco Network Services Or
 
 For the purpose of this workshop, we will focus on two specific NSO environments:
 
-**Development NSO:** `10.10.20.47`
+**Development NSO:** [10.10.20.47](http://10.10.20.47)
 
-**Production NSO:** `10.10.20.48`
+**Production NSO:** [10.10.20.48](http://10.10.20.48)
 
-The Development NSO environment (`10.10.20.47`) is used to simulate a testing environment where we can validate our changes before deploying them to the production environment. This ensures that any modifications are thoroughly tested and verified, reducing the risk of issues in the Production NSO environment (`10.10.20.48`).
+The Development NSO environment ([10.10.20.47](http://10.10.20.47)) is used to simulate a testing environment where we can validate our changes before deploying them to the production environment. This ensures that any modifications are thoroughly tested and verified, reducing the risk of issues in the Production NSO environment ([10.10.20.48](http://10.10.20.48)).
 
 ### Log into NSO 
 ---
-Launch an SSH session to the Dev NSO instance (`10.10.20.47`) and log in using username `developer` and password `C1sco12345`.
+Launch an SSH session to the Dev NSO instance ([10.10.20.47](http://10.10.20.47)) and log in using username `developer` and password `C1sco12345`.
 <details>
 <summary>Click here to show solution</summary>
 ```bash
@@ -79,5 +77,3 @@ Select the NSO bookmark in Google Chrome or navigate to [http://10.10.20.47:8080
 If all steps are executed correctly, you will have completed the verification of your working environment.
 
 ---
-
-**Previous:** [← Connectivity & Access](Connectivity.md) | **Next:** [Define CI/CD Pipeline →](../pipeline/Dummy_Pipeline.md)

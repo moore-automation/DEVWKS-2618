@@ -12,5 +12,3 @@ This process demonstrates the complete lifecycle of developing, testing, and dep
 We hope you now feel comfortable with the role these tools play in modern network automation and CI/CD workflows. Thank you for participating!
 
 ---
-
-**Previous:** [← Compliance Reporting](lab_guides/testing/compliance_reporting.md)

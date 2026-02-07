@@ -1,7 +1,5 @@
 # Pre-commit Checks
 
-**⏱️ Estimated time: 7 minutes**
-
 There are many types of testing we can perform within our pipelines, in this section we're going to add some basic xml linting to catch any unwanted typos, check connectivity to our devices and perform a config backup. The actual function isn't too important here, more to make it clear the functions of the different tools and their associated benefits and drawbacks.
 
 !!! note "**Reminder:** What are some common testing types?"
@@ -92,5 +90,3 @@ Now let's add this to our pipeline. Add the following code to the `.pre` stage o
 !!!question "What was the outcome of the .pre stage.?"
 
 ---
-
-**Previous:** [← Deploy Pipeline](../pipeline/Deploy_Pipeline.md) | **Next:** [Apply Service →](../pipeline/apply.md)

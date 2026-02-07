@@ -1,7 +1,5 @@
 # Applying Our Service
 
-**⏱️ Estimated time: 5 minutes**
-
 Now that we've added some basic tests, let's move straight into deploying our service!
 
 ## Task 6: Apply the NSO Service
@@ -126,5 +124,3 @@ apply-service:
 !!! question "Has the configuration been applied to the device correctly?"
 
 ---
-
-**Previous:** [← Pre-commit Checks](../testing/pre_checks.md) | **Next:** [Compliance Reporting →](../testing/compliance_reporting.md)
