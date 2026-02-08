@@ -14,6 +14,7 @@ copyright: Copyright &copy; 2024-2026 Cisco Systems, Inc.
 # Theme configuration
 theme:
   name: material
+  custom_dir: docs/overrides
   language: en
   logo: assets/logo.jpg
   
@@ -81,8 +82,8 @@ markdown_extensions:
   - footnotes
   - md_in_html
   - toc:
-      permalink: true
-      toc_depth: 3
+      permalink: false
+      toc_depth: 0
   
   # Python Markdown Extensions
   - pymdownx.arithmatex:
@@ -118,17 +119,18 @@ plugins:
   - search:
       lang: en
       separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+  - macros:
+      module_name: login_macro
 
 # Navigation structure
 nav:
-  - Home: index.md
-  - Get Connected:
-    - Connectivity: lab_guides/connectivity/Connectivity.md
-    - Sandbox Access: lab_guides/connectivity/Access.md
+  - Home: pages/0_Home.md
   - Workshop Guide:
-    - Create the CI/CD pipeline: lab_guides/pipeline/Dummy_Pipeline.md
-    - Pipeline-Driven NSO Service Development: lab_guides/pipeline/Deploy_Pipeline.md
-    - Adding Pre-Checks to the Pipeline: lab_guides/testing/pre_checks.md
-    - Applying a Service to a Device: lab_guides/pipeline/apply.md
-    - Compliance Reporting: lab_guides/testing/compliance_reporting.md
-    - Conclusion: Conclusion.md
+    - Connectivity: pages/1_Connectivity.md
+    - Sandbox Access: pages/2_Access.md
+    - Working with GitLab: pages/3_Working_with_GitLab.md
+    - Pipeline-Driven NSO Service Development: pages/4_Deploy_Pipeline.md
+    - Adding Pre-Checks to the Pipeline: pages/5_Pre_Checks.md
+    - Applying a Service to a Device: pages/6_Apply.md
+    - Compliance Reporting: pages/7_Compliance_Reporting.md
+    - Conclusion: pages/8_Conclusion.md

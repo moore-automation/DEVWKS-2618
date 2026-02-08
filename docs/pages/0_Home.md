@@ -1,7 +1,3 @@
----
-hide:
-  - navigation
----
 # **Homepage**
 
 Welcome! You don't need to create a project from scratch for this workshop. Instead, we'll work with a sample repository from the updated NSO Sandbox.
@@ -22,15 +18,34 @@ This section covers the role of automated testing within the CI/CD pipeline. We'
 
 ---
 
+## **Guide Conventions**
+
+Throughout this workshop you'll see two styles of highlighted block:
+
+<div class="instruction" markdown>
+
+**Instruction** — A green block like this tells you to **do something**. Follow the steps described to proceed with the lab.
+
+</div>
+
+**Informational** — A blue block like this provides background context or explains a concept. You don't need to act on these, but they'll help you understand what's happening.
+{: .card }
+
+---
+
 ## **Lab Topology**
 
 ---
 
 Here's a brief overview of the dCloud setup used in this lab:
 
+<div class="card" markdown>
+
 - **Development NSO:** The development NSO deployment manages network devices within the CML.
 - **Production NSO:** The main NSO deployment manages network devices within the CML.
 - **Developer Workstation (DevBox):** A Linux VM for developing new services, running tests, and initiating pipelines.
 - **Developer Tools (DevTools):** Another Linux VM equipped with various tools needed for lab activities.
 
-![Lab Topology](assets/topology_lab.jpg)
+</div>
+
+![Lab Topology](../assets/topology_lab.jpg)

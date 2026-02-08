@@ -1,11 +1,7 @@
 # MkDocs and Material Theme
 mkdocs>=1.5.0
 mkdocs-material>=9.5.0
-
-# Extensions for enhanced documentation
 pymdown-extensions>=10.7.0
-
-# Plugins
-
-# Additional utilities
 markdown>=3.5.0
+mkdocs-macros-plugin>=1.0.0
+pyyaml>=6.0

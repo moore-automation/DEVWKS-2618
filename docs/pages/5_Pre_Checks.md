@@ -4,24 +4,28 @@ There are many types of testing we can perform within our pipelines, in this sec
 
 !!! note "**Reminder:** What are some common testing types?"
 
-    **Semantic Testing**
+    <div class="card" markdown>
 
-    -  Semantic testing ensures that the network configurations and automation scripts achieve the intended network behavior and meet design specifications. This involves validating that the IaC scripts correctly configure network elements like routers, switches, and firewalls to deliver expected outcomes, such as correct routing, security policies, and connectivity.***Example:*** Using **NSO Compliance Reporting** to check our services are correctly applied and our devices are in sync.
+    **Semantic Testing** — Semantic testing ensures that the network configurations and automation scripts achieve the intended network behavior and meet design specifications. This involves validating that the IaC scripts correctly configure network elements like routers, switches, and firewalls to deliver expected outcomes, such as correct routing, security policies, and connectivity. ***Example:*** Using **NSO Compliance Reporting** to check our services are correctly applied and our devices are in sync.
 
-    **Syntactical Testing**
+    **Syntactical Testing** — Syntactical testing ensures that configuration scripts and templates conform to the syntax rules of the tools and avoid syntax errors such as incorrect indentation in YAML files or missing parameters in command-line interfaces. ***Example:*** Using **xmllint** to make sure our template xml's are free from typos.
 
-    - Syntactical testing ensures that configuration scripts and templates conform to the syntax rules of the tools and avoid syntax errors such as incorrect indentation in YAML files or missing parameters in command-line interfaces.***Example:*** Using **xmllint** to make sure our template xml's are free from typos.
+    **Environmental Testing** *(Out of scope of this workshop)* — Environmental testing verifies that the network configurations work correctly across different network environments and hardware platforms. Simulations or staging environments that mimic production are used to test configurations under various conditions, such as different network topologies, device models, and firmware versions. ***Example:*** Testing a deployment in a lab environment that replicates the production setup to ensure it will perform correctly when deployed live.
 
-    **Environmental Testing** - *(Out of scope of this workshop)*
-
-    - Environmental testing verifies that the network configurations work correctly across different network environments and hardware platforms. Simulations or staging environments that mimic production are used to test configurations under various conditions, such as different network topologies, device models, and firmware versions.***Example:*** Testing a deployment in a lab environment that replicates the production setup to ensure it will perform correctly when deployed live.
+    </div>
 
 ## Task 6: Add linting to pipeline
 
-???note "**Reminder:*** What is xmllint"
+??? note "**Reminder:** What is xmllint"
     xmllint is a command-line XML tool used for parsing and validating XML documents, ensuring they are well-formed and adhere to their associated XML Schema Definition (XSD) or Document Type Definition (DTD). It also offers capabilities for formatting, querying, and extracting data from XML files, making it a versatile utility for XML manipulation and debugging.
 
-Pre-commits are a handy feature where we can test aspects of our code before the commit is executed. We use this for adding sshpass to the runner as an additional tool to the standard build. The code below performs a syntax check of our loopback template without any output upon success. Add it to our existing .pre stage or create a new job to execute the command.
+Pre-commits are a handy feature where we can test aspects of our code before the commit is executed. We use this for adding sshpass to the runner as an additional tool to the standard build. The code below performs a syntax check of our loopback template without any output upon success. 
+
+<div class="instruction" markdown>
+
+Add it to our existing .pre stage or create a new job to execute the command.
+
+</div>
 
 ```yml
 - xmllint --noout nso_cicd/packages/loopback/templates/loopback-template.xml
@@ -31,7 +35,8 @@ Pre-commits are a handy feature where we can test aspects of our code before the
 
 Robot Framework is an open-source automation framework designed for acceptance testing and robotic process automation (RPA). It uses a keyword-driven approach to create readable and reusable test cases and supports various external libraries for testing different types of applications and systems. We're going to use it to run some show commands and perform a config backup.
 
-Create a robot file in the ``nso_cicd/`folder named`pre_check.robot` using the code provided below:
+Create a robot file in the ``nso_cicd/pre_check.robot`` using the code provided below:
+{: .instruction }
 
 ```robotframework
 
@@ -81,12 +86,13 @@ Open Connections And Log In
     END
 ```
 
-Now let's add this to our pipeline. Add the following code to the `.pre` stage of your `.gitlab-ci.yml` file:
+Now let's add this to our pipeline. Add the following code to the `.pre` stage of your `.gitlab-ci.yml` file
+{: .instruction }
 
 ```yml
 - python -m robot nso_cicd/pre_check.robot
 ```
 
-!!!question "What was the outcome of the .pre stage.?"
+!!! question "What was the outcome of the .pre stage?"
 
 ---

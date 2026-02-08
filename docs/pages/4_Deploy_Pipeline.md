@@ -1,3 +1,114 @@
+# Pipeline-Driven NSO Service Development
+
+---
+
+After understanding the concept of a pipeline and its stages, we'll move on to modifying the NSO package service in the `nso_cicd/packages/loopback` directory. Our GitLab CI/CD pipeline will automate the verification process by compiling the package and performing a compatibility (smoke) test with the current NSO version.
+
+The pipeline will also automate the deployment of the package service in the NSO development environment and run tests using Python and PyATS. Once all pipeline stages complete successfully, you can confidently deploy the changes to the production environment.
+
+## Task 3: Create a Test Branch
+
+??? info "**Reminder:** What is a branch?"
+
+    In Git, a branch is a lightweight, movable pointer to a commit. Branches allow you to create separate lines of development within a repository, enabling you to work on different features, bug fixes, or experiments simultaneously without affecting the main codebase. Branches are central to most version control workflows, making parallel development and collaboration easy. Developers can experiment and innovate without disrupting stable code.
+
+    <div class="card" markdown>
+
+    **Key Concepts:**
+
+    - **Default Branch:** The main line of development, usually called `main` or `master`.
+    - **Feature Development:** Create new branches for each feature, bug fix, or task. This isolates changes from the main branch until they're ready to be merged.
+    - **Branch Creation:** Use `git branch` or `git checkout -b` to create and switch to a new branch.
+    - **Switching Branches:** Use `git checkout` to switch between branches.
+    - **Merging:** Once work is complete and tested, merge the branch back into another branch (typically `main`) using `git merge`.
+    - **Collaboration:** Multiple developers can work on their own branches and merge changes into shared branches as needed.
+
+    </div>
+
+Creating a test branch allows you to make changes safely without impacting the production NSO service package stored in the main branch. By committing and pushing changes to this test branch in GitLab, the pipeline will automatically compile, test, and deploy the NSO package to the development environment and execute the test scripts. You can then review the pipeline's pass/fail status to ensure your changes are successful.
+
+![Test Branch Creation](../assets/create_test_branch.jpg)
+
+You should now have a new branch called `package_dev_demo` and be working on that branch.
+
+## Task 4: Update the NSO Loopback Template
+
+??? info  "**Reminder:** What is a template, and how is it different from a model?"
+
+    YANG models and templates together enable full lifecycle management of network services—from design and deployment to monitoring and troubleshooting. This combination allows network operators to define services once and deploy them consistently across diverse network environments, scaling operations efficiently. YANG models and templates are integral to NSO's automation capabilities, allowing for rapid deployment and modification of network services, and reducing the need for manual intervention.
+
+    <div class="card" markdown>
+
+    **Key Concepts:**
+
+    - **Configuration Generation:** Templates in NSO generate device-specific configuration snippets from the abstract service definitions provided by YANG models.
+    - **Device-Specific Customization:** While YANG models define the abstract structure, templates handle the nuances of various device types and vendors, allowing NSO to push the correct configurations to different devices.
+    - **Separation of Concerns:** Templates separate service logic from device-specific syntax, making maintenance and updates easier.
+    - **Reusable Components:** Templates can be reused across different services, promoting consistency and reducing duplication.
+
+    </div>
+
+<div class="instruction" markdown>
+
+To complete the development of the Loopback service and ensure all tests pass, modify the file `loopback-template.xml` located in `/nso_cicd/packages/loopback/templates`. Include the XML configurations as specified below, making sure they match exactly.
+
+</div>
+
+!!! question "Question: Why do we need to define different interface templates for IOS and IOS XR?"
+
+```xml
+<config-template xmlns="http://tail-f.com/ns/config/1.0"
+                 servicepoint="loopback">  
+  <devices xmlns="http://tail-f.com/ns/ncs">  
+    <!-- DEVICE -->
+    <device>  
+      <name>{/device}</name>  
+      <config>  
+        <!-- IOS -->
+        <interface xmlns="urn:ios"> 
+          <Loopback> 
+            <name>{/loopback-intf}</name>
+            <ip> 
+              <address> 
+                <primary> 
+                  <address>{/ip-address}</address>
+                  <mask>255.255.255.255</mask> 
+                </primary> 
+              </address> 
+            </ip> 
+          </Loopback> 
+        </interface> 
+        <!-- IOS-XR -->
+        <interface xmlns="http://tail-f.com/ned/cisco-ios-xr"> 
+          <Loopback> 
+            <id>{/loopback-intf}</id>
+            <ipv4> 
+              <address> 
+                <ip>{/ip-address}</ip>
+                <mask>255.255.255.255</mask> 
+              </address> 
+            </ipv4> 
+          </Loopback> 
+        </interface>  
+      </config> 
+    </device> 
+  </devices> 
+</config-template>
+```
+
+## Task 5: Update the GitLab Pipeline
+
+Now it's time to make our pipeline actually do something! For this workshop, we'll use a pipeline to package an NSO loopback service, deploy it to the NSO development environment, and perform basic validation tests.
+
+<div class="instruction" markdown>
+
+To enhance practicality and efficiency, you can replace your CI file with the pipeline below and commit the changes. Don't worry too much about the details of each task; if we have time at the end, we can revisit the functions.
+
+</div>
+
+!!! question "Question: Which stages will run when making changes in our test pipeline?"
+
+```yaml
 # GitLab CI/CD Pipeline for NSO Package Deployment
 #
 # Workflow:
@@ -13,7 +124,6 @@ stages:
   - build
   - test
   - deliver
-  - deploy_feat
   - deploy_prod
 
 variables:
@@ -39,8 +149,6 @@ runner pre-reqs:
     - pipx install robotframework-sshlibrary --include-deps --force
     - sshpass -p "$NSO_DEV_PWD" ssh $SSH_OPTS $NSO_DEV_USER@$NSO_DEV_IP "echo 'OK'" || (echo "Dev unreachable" && exit 1)
     - sshpass -p "$NSO_PROD_PWD" ssh $SSH_OPTS $NSO_DEV_USER@$NSO_PROD_IP "echo 'OK'" || (echo "Prod unreachable" && exit 1)
-    - xmllint --noout nso_cicd/packages/loopback/templates/loopback-template.xml
-    - python -m robot nso_cicd/pre_check.robot
   retry:
     max: 2
     when: [runner_system_failure, stuck_or_timeout_failure]
@@ -184,48 +292,22 @@ verify-production-deployment:
 #         rm -rf /home/developer/$PACKAGE /home/developer/nso-package_$PACKAGE.tar.gz $NSO_RUN_PATH/packages/$PACKAGE &&
 #         source $NSO_RC_PATH && echo 'packages reload force' | ncs_cli -Cu admin
 #       " || echo "Cleanup had issues (non-fatal)"
+```
 
-# Rollback capability (optional, manual trigger)
-rollback-production:
-  stage: .post
-  extends: .base_job
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
-      when: manual
-      allow_failure: true
-  environment:
-    name: production
-  script:
-    - |
-      sshpass -p "$NSO_PROD_PWD" ssh $SSH_OPTS $NSO_DEV_USER@$NSO_PROD_IP "
-        set -e &&
-        BACKUP=\$(ls -t $NSO_RUN_PATH/packages/loopback.backup.* 2>/dev/null | head -n1) &&
-        if [ -z \"\$BACKUP\" ]; then
-          echo 'ERROR: No backup found for rollback'
-          exit 1
-        fi &&
-        echo \"Rolling back to: \$BACKUP\" &&
-        rm -rf $NSO_RUN_PATH/packages/loopback &&
-        mv \$BACKUP $NSO_RUN_PATH/packages/loopback &&
-        source $NSO_RC_PATH &&
-        echo 'packages reload' | ncs_cli -Cu admin &&
-        echo '✅ Rollback completed'
-      "
+> **Note:** For more details on the pipeline configuration, see the GitLab [documentation](https://docs.gitlab.com/ee/ci/yaml/){:target="_blank"}.
 
-apply-service:
-  stage: deploy_feat
-  when: on_success
-  needs: [test-loopback-service]
-  rules:
-    - if: $CI_COMMIT_BRANCH != "main"
-  script:
-    - set -eo pipefail
-    - echo "Apply IOS"
-    - python nso_cicd/apply.py --nso_url "http://$NSO_DEV_IP:8080" --device "dev-dist-rtr01" --username $NSO_DEV_USER --password $NSO_DEV_PWD 2>&1 | tee apply.log
-    - python nso_cicd/compliance.py --nso_url "http://$NSO_DEV_IP:8080" --username $NSO_DEV_USER --password $NSO_DEV_PWD 2>&1 | tee compliance.log
-  artifacts:
-    when: always
-    paths:
-      - apply.log
-      - compliance.log
-    expire_in: 30 days
+<div class="instruction" markdown>
+
+Navigate to [NSO CI/CD Pipelines](http://devtools-gitlab.lab.devnetsandbox.local/developer/nso_cicd/-/pipelines){:target="_blank"} to view the status of the pipeline.
+
+</div>
+
+This process may take a few minutes to complete. While the stages are running, review the completed ones to see what is happening.
+
+!!! question "What was the outcome of the testing phase?"
+
+!!! question "Is the loopback service available in the development NSO instance?"
+
+![Results pipeline NSO](../assets/Gitlab-Test-Success.jpg)
+
+---
