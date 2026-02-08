@@ -47,31 +47,6 @@ htmlcov/
 *.bak
 *.log
 
-# Credentials (access subfolder holds sensitive YAML)
-connectivity/access/credentials.yaml
-connectivity/access/endpoints.yaml
-connectivity/access/login.yaml
-
-# Lab seat credentials (injected at build time by mkdocs-macros)
-resources/login.yaml
-
-# Connectivity check output
-connectivity/connectivity_failures.txt
-connectivity/connectivity_failures_*.txt
-connectivity/vpn_check_report.txt
-connectivity/report.html
-connectivity/report_results.json
-
-# Sample connectivity checker (same gitignore rules)
-connectivity-sample/access/credentials.yaml
-connectivity-sample/access/endpoints.yaml
-connectivity-sample/access/login.yaml
-connectivity-sample/connectivity_failures.txt
-connectivity-sample/connectivity_failures_*.txt
-connectivity-sample/vpn_check_report.txt
-connectivity-sample/report.html
-connectivity-sample/report_results.json
-
 # IDE workspace files
 *.code-workspace
 

@@ -1,0 +1,51 @@
+- devwks-2618-ws1-primary:
+    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20330
+    vpn_password: LhEs1G0h%0^ORg
+- devwks-2618-ws1-seat1:
+    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20336
+    vpn_password: ^2mwOKf$533A
+- devwks-2618-ws1-seat10:
+    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20363
+    vpn_password: F^e3_840RQIQ^qb
+- devwks-2618-ws1-seat11:
+    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20354
+    vpn_password: ^*ka$6pGY9b1Az
+- devwks-2618-ws1-seat12:
+    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20356
+    vpn_password: G2d9!&JyD!EyR7
+- devwks-2618-ws1-seat13:
+    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20358
+    vpn_password: 5pT^qBZ_13xr8
+- devwks-2618-ws1-seat14:
+    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20359
+    vpn_password: 4K7q#TJbrV0vqa#
+- devwks-2618-ws1-seat15:
+    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20355
+    vpn_password: '!NJ5GkiFE6$mi6D'
+- devwks-2618-ws1-seat16:
+    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20357
+    vpn_password: crf$1m7U8!pNB
+- devwks-2618-ws1-seat2:
+    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20337
+    vpn_password: E4p4#vIxT9$F_
+- devwks-2618-ws1-seat3:
+    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20350
+    vpn_password: YhGmi15&&V3E
+- devwks-2618-ws1-seat4:
+    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20351
+    vpn_password: MQ5cCV%34g0cL$N5
+- devwks-2618-ws1-seat5:
+    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20352
+    vpn_password: ts%Pcx9e4Z1T*
+- devwks-2618-ws1-seat6:
+    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20353
+    vpn_password: e4r%6B$BP7Hn
+- devwks-2618-ws1-seat7:
+    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20360
+    vpn_password: X*zcZ5Z9J7u7Wv_j
+- devwks-2618-ws1-seat8:
+    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20364
+    vpn_password: '&Lt*RcX3%sdr#08'
+- devwks-2618-ws1-seat9:
+    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20362
+    vpn_password: ZvJ00cD_^5^j0j
