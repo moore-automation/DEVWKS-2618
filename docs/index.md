@@ -48,4 +48,4 @@ Here's a brief overview of the dCloud setup used in this lab:
 
 </div>
 
-![Lab Topology](../assets/topology_lab.jpg)
+![Lab Topology](assets/topology_lab.jpg)
