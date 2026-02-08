@@ -124,7 +124,7 @@ plugins:
 
 # Navigation structure
 nav:
-  - Home: pages/0_Home.md
+  - Home: index.md
   - Workshop Guide:
     - Connectivity: pages/1_Connectivity.md
     - Sandbox Access: pages/2_Access.md
