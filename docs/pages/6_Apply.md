@@ -7,14 +7,14 @@ Now that we've added some basic tests, let's move straight into deploying our se
 ??? note "**Reminder:** RESTCONF"
     Cisco NSO uses RESTCONF to provide a standardized, RESTful API interface for interacting with network configurations and services.
 
-    <div class="card" markdown>
+    `<div class="card" markdown>`
 
     - RESTCONF is a RESTful protocol for accessing and manipulating network configuration data defined in YANG models.
     - It provides a standardized HTTP-based interface for retrieving, configuring, and monitoring network settings.
     - Utilizes standard HTTP methods (GET, POST, PUT, DELETE) for operations and supports JSON or XML for data representation.
     - Aims to simplify network management with consistent interaction across diverse network elements.
 
-    </div>
+    `</div>`
 
 Below is a basic Python script to apply the service to the device `dev-dist-rtr01`.
 
@@ -133,7 +133,6 @@ apply-service:
   script:
     - echo "Apply IOS"
     - python nso_cicd/apply.py --nso_url "http://$NSO_DEV_IP:8080" --device "dev-dist-rtr01" --username $NSO_DEV_USER --password $NSO_DEV_PWD
-    - python nso_cicd/compliance.py --nso_url "http://$NSO_DEV_IP:8080" --username $NSO_DEV_USER --password $NSO_DEV_PWD
   dependencies: [deploy-to-production]
 ```
 
