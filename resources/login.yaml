@@ -1,80 +1,13 @@
-- devwks-2618-ws1-backup1:
-    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20295
-    vpn_password: YBXj8y9l8%0$k%j
-    vpn_username: devnetws
-- devwks-2618-ws1-backup2:
-    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20297
-    vpn_password: m7U#p0QEz9gn$WHb
-    vpn_username: devnetws
-- devwks-2618-ws1-seat1:
-    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20299
-    vpn_password: V!*ku9m73zCY
-    vpn_username: devnetws
-- devwks-2618-ws1-seat2:
-    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20300
-    vpn_password: E6qg2^1haDpjHg1&
-    vpn_username: devnetws
-- devwks-2618-ws1-seat3:
-    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20302
-    vpn_password: E8R_M7_WY4lo$1t
-    vpn_username: devnetws
-- devwks-2618-ws1-seat4:
-    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20310
-    vpn_password: C!u5kiN2N#%6t
-    vpn_username: devnetws
-- devwks-2618-ws1-seat5:
-    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20351
-    vpn_password: oT%FL*0f4ZOE2#y
-    vpn_username: devnetws
-- devwks-2618-ws1-seat6:
-    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20356
-    vpn_password: 27gVr0%Cn^sJEhb
-    vpn_username: devnetws
-- devwks-2618-ws1-seat7:
-    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20360
-    vpn_password: fLjk7OJ&5!Br#8
-    vpn_username: devnetws
-- devwks-2618-ws1-seat8:
-    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20361
-    vpn_password: 7&Rs28hBYiy*x
-    vpn_username: devnetws
-- devwks-2618-ws1-seat9:
-    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20363
-    vpn_password: glaFs54$#y%QxLt5
-    vpn_username: devnetws
-- devwks-2618-ws1-seat10:
-    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20362
-    vpn_password: G#EoaHN#036q
-    vpn_username: devnetws
-- devwks-2618-ws1-seat11:
-    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20364
-    vpn_password: '*7_B17x!BQt4dR'
-    vpn_username: devnetws
-- devwks-2618-ws1-seat12:
-    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20365
-    vpn_password: V^McM54aAs4S$
-    vpn_username: devnetws
-- devwks-2618-ws1-seat13:
-    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20368
-    vpn_password: KX6LY&2t6kb*
-    vpn_username: devnetws
-- devwks-2618-ws1-seat14:
-    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20367
-    vpn_password: Ei$%G!x8v65M9j
-    vpn_username: devnetws
-- devwks-2618-ws1-seat15:
-    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20369
-    vpn_password: F$W8fEUMd#7ri6
-    vpn_username: devnetws
-- devwks-2618-ws1-seat16:
-    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20373
-    vpn_password: 47YBP88ukP^%3gp
-    vpn_username: devnetws
-- devwks-2618-ws1-speaker:
-    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20202
-    vpn_password: X5Cid4s29_lF&
-    vpn_username: edmoor
-- devwks-2618-ws1-speaker2:
-    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20125
-    vpn_password: ^1TU%5kiqG3g
-    vpn_username: edmoor
+# Example structure for workshop connectivity (login.yaml).
+# For live shows, replace with real pod data; credentials are gitignored in practice.
+# Each entry: pod name (e.g. devwks-2618-ws1-seat1) with vpn_address, vpn_username, vpn_password.
+# Optionally include torque_id for reservation systems.
+
+- example-ws1-seat1:
+    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20XXX
+    vpn_username: your_username
+    vpn_password: your_password
+- example-ws1-seat2:
+    vpn_address: devnetsandbox-usw1-reservation.cisco.com:20XXX
+    vpn_username: your_username
+    vpn_password: your_password

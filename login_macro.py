@@ -52,6 +52,7 @@ def define_env(env):
                 addr = info.get("vpn_address", "")
                 user = info.get("vpn_username", "")
                 pwd = info.get("vpn_password", "")
+                vpnless_git_url = f"https://git.devwks-2618-seat{seat_num}.devnetvpnless.dev/"
                 seats.append(
                     {
                         "num": seat_num,
@@ -61,6 +62,7 @@ def define_env(env):
                         "vpn_username": user,
                         "openconnect_cmd": _openconnect_cmd(user, pwd, addr),
                         "openconnect_script": _openconnect_script(user, pwd, addr),
+                        "vpnless_git_url": vpnless_git_url,
                     }
                 )
             elif "-speaker" in name:
