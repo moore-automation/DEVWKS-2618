@@ -12,7 +12,7 @@ help:
 	@echo "  make docs-preview  - Preview production build"
 	@echo "  make docs-clean    - Remove docs/ build output"
 	@echo ""
-	@echo "Publish: run docs-build, then deploy docs/ to GitHub Pages"
+	@echo "Publish: make docs-build, git add docs/, commit, push (Pages: main /docs)"
 	@echo "Optional: git config core.hooksPath .githooks  (lint+build before push)"
 	@echo ""
 

@@ -48,7 +48,9 @@ make docs-build    # writes to docs/ with SITE_BASE=/DEVWKS-2618/
 make docs-lint
 ```
 
-Production output goes to `docs/` (gitignored). Publish that folder to GitHub Pages using your usual process after `make docs-build`.
+Production output goes to `docs/`. Commit and push `docs/` after each `make docs-build` so GitHub Pages can serve the site.
+
+**GitHub Pages:** https://moore-automation.github.io/DEVWKS-2618/ — source branch **`main`**, folder **`/docs`**. Commit and push `docs/` after each `make docs-build`.
 
 ### Optional pre-push hook
 
